@@ -7,6 +7,24 @@
 		"abi": [
 			{
 				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "getBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "manager",
 				"outputs": [
 					{
@@ -19,6 +37,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "participate",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -26,12 +51,25 @@
 						"type": "uint256"
 					}
 				],
-				"name": "player",
+				"name": "players",
 				"outputs": [
 					{
 						"internalType": "address payable",
 						"name": "",
 						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "random",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -79,11 +117,11 @@
 	},
 	"sources": {
 		"contracts/lotter.sol": {
-			"keccak256": "0x7d25c68a5ba81414fa4528e9aac80e4cffaea18949317340f65132cd0fa3cde4",
+			"keccak256": "0x677f23fffe0204d75af1eca7199c5b3eb3a21823c48428f2fcbe746acc294927",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://8fc1041c30dba818d0fbfa7a5730a185084a48e6aaf5c8f180c7acbba51c51c0",
-				"dweb:/ipfs/QmaRXMG75JSgC8ACMAWrQvrCgkVcm9ULfrqEJevjZ1tzpT"
+				"bzz-raw://db6c08a7d3ceced5aab665ba7b93545116cbd220d5276da58404a44194053064",
+				"dweb:/ipfs/QmS34eUwF9fdcU8YiV2ayVR4S7L3Gpons7rkPwNtxmLeh8"
 			]
 		}
 	},
