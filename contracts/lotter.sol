@@ -1,29 +1,38 @@
 // SPDX-License-Identifier: GPL-3.0
-
 pragma solidity >=0.8.2 <0.9.0;
 
 contract Lottery {
-    address public manager; 
+    address public manager;
     address payable[] public players;
     address payable public winner;
 
     constructor() {
-        manager=msg.sender;
+        manager = msg.sender;
     }
 
-    function participate() public payable{
-        require(msg.value==1 ether, "Please pay 1 ether only");
+    function participate() external payable {
+        require(msg.value == 1 ether, "Please pay exactly 1 ether");
         players.push(payable(msg.sender));
-    } 
+    }
 
-    function getBalance() public view returns(uint) {
-        require(manager==msg.sender, "You are not authorized"); 
+    function getBalance() external view returns (uint) {
+        require(msg.sender == manager, "Only manager can view balance");
         return address(this).balance;
     }
 
-   function random() public view returns (uint) {
-    return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, players.length)));
-   }
+    function random() private view returns (uint) {
+        return uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, players.length)));
+    }
 
+    function pickWinner() public {
+        require(msg.sender == manager, "Only manager can pick winner");
+        require(players.length > 0, "No players entered");
 
+        uint index = random() % players.length;
+        winner = players[index];
+        winner.transfer(address(this).balance); // Send full pot
+
+        // Reset for next round
+        players = new address payable[](0);
+    }
 }
