@@ -15,7 +15,7 @@ contract Lottery {
         players.push(payable(msg.sender));
     }
 
-    function getBalance() external view returns (uint) {
+    function getBalance() public view returns (uint) {
         require(msg.sender == manager, "Only manager can view balance");
         return address(this).balance;
     }
@@ -24,13 +24,14 @@ contract Lottery {
         return uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, players.length)));
     }
 
-    function pickWinner() public {
+    function pickWinner() external {
         require(msg.sender == manager, "Only manager can pick winner");
-        require(players.length > 0, "No players entered");
+        require(players.length >= 3, "No players yet");
 
-        uint index = random() % players.length;
+        uint r=random();
+        uint index = r % players.length;
         winner = players[index];
-        winner.transfer(address(this).balance); // Send full pot
+        winner.transfer(getBalance()); 
 
         // Reset for next round
         players = new address payable[](0);
